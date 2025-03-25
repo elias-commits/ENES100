@@ -11,7 +11,6 @@ float read_distance() {
     duration = pulseIn(ULTRASONIC_ECHO,HIGH);
     distance = (duration*0.343)/2;
     return distance;
-    // put your main code here, to run repeatedly:  
 }
 
 // add a function to calculate speed from PWM?
