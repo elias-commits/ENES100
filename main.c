@@ -8,9 +8,6 @@ void setup() {
     for (int i = 0; i < (sizeof(OUTPUT_PINS) / sizeof(int)); i++) {
         pinMode(OUTPUT_PINS[i],OUTPUT);
     }
-
-    drive_left(100);
-
 }
 
 
