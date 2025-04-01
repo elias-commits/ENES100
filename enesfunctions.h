@@ -1,4 +1,4 @@
-#include "enesmacros.h"
+#include "enesheaders.h"
 
 float distance = 0.;
 float duration = 0.;
@@ -26,12 +26,6 @@ float read_distance() {
 // add a function to calculate speed from PWM?
 // currently takes raw PWM value
 
-void drive_left(int speed) {
-    analogWrite(BOTH_MOTORS_PWM,speed);
-    digitalWrite(R_MOTOR_DIRECTION,0);
-    digitalWrite(L_MOTOR_DIRECTION,1);
-
-}
 
 float read_red() {
   digitalWrite(COLOR_S2,LOW);
@@ -69,15 +63,47 @@ struct RGB read_rgb() {
 }
 
 
+void right_forwards() {
+  digitalWrite(R_MOTOR_DIRECTION1,1);
+  digitalWrite(R_MOTOR_DIRECTION2,0);
+}
 
-void drive_forward(int speed) {
+void left_forwards() {
+  digitalWrite(L_MOTOR_DIRECTION1,1);
+  digitalWrite(L_MOTOR_DIRECTION2,0);
+}
+
+void right_backwards() {
+  digitalWrite(R_MOTOR_DIRECTION1,0);
+  digitalWrite(R_MOTOR_DIRECTION2,1);
+}
+
+void left_backwards() {
+  digitalWrite(L_MOTOR_DIRECTION1,0);
+  digitalWrite(L_MOTOR_DIRECTION2,1);
+}
+
+void drive_forwards(int speed) {
     analogWrite(BOTH_MOTORS_PWM,speed);
-    digitalWrite(R_MOTOR_DIRECTION,1);
-    digitalWrite(L_MOTOR_DIRECTION,1);
+    right_forwards();
+    left_forwards();
+}
+
+void drive_backwards(int speed) {
+    analogWrite(BOTH_MOTORS_PWM,speed);
+    right_backwards();
+    left_backwards();
+}
+
+void drive_left(int speed) {
+    analogWrite(BOTH_MOTORS_PWM,speed);
+    left_forwards();
+    right_backwards();
+
 }
 
 void drive_right(int speed) {
     analogWrite(BOTH_MOTORS_PWM,speed);
-    digitalWrite(R_MOTOR_DIRECTION,1);
-    digitalWrite(L_MOTOR_DIRECTION,0);
+    right_forwards();
+    left_backwards();
 }
