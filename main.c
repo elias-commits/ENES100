@@ -8,15 +8,15 @@ void setup() {
     for (int i = 0; i < (sizeof(OUTPUT_PINS) / sizeof(int)); i++) {
         pinMode(OUTPUT_PINS[i],OUTPUT);
     }
+
 }
 
 
 void loop() {
-  struct RGB rgb = read_rgb();
-  Serial.println(rgb.r);
-  Serial.println(rgb.g);
-  Serial.println(rgb.b);
-  Serial.println("- - - - - ");
-  delay(1000);
-
+    Serial.println("Forwards");
+    drive_forwards(100);
+    delay(1000);
+    Serial.println("Backwards");
+    drive_backwards(100);
+    delay(1000);
 }
