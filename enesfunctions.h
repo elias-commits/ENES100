@@ -10,6 +10,7 @@ struct RGB {
 
 };
 
+// milimeters
 float read_distance() {
     digitalWrite(ULTRASONIC_TRIGGER,LOW);
     delayMicroseconds(2);
