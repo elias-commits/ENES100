@@ -1,14 +1,18 @@
+#include <Servo.h>
+
 #define L_MOTOR_DIRECTION1 13
 #define L_MOTOR_DIRECTION2 12
 
-#define BOTH_MOTORS_PWM 10
+#define BOTH_MOTORS_PWM 6
 
 #define R_MOTOR_DIRECTION1 9
 #define R_MOTOR_DIRECTION2 8
 
+
 #define PRESS_SERVO_PWM 11
 #define TRAPDOOR_SERVO_PWM 5
-
+Servo pressServo;
+Servo trapdoorServo;
 // s2:LOW/s3LOW is RED, s2:HIGH/s3:HIGH is GREEN 
 #define COLOR_S2 7 
 #define COLOR_S3 2
