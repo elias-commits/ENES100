@@ -52,14 +52,18 @@ float read_blue() {
 
 struct RGB read_rgb() {
   struct RGB ret;
-  
-  ret.r = read_red();
-  delay(2);
-  ret.g = read_blue();
-  delay(2);
-  ret.b = read_green();
-  delay(2);
-
+  int passes = 50;
+  for (int i = 0; i < passes; i++) {
+    ret.r += read_red();
+    delay(1);
+    ret.g += read_green();
+    delay(1);
+    ret.b += read_blue();
+    delay(1);
+  }
+  ret.r /= passes;
+  ret.g /= passes;
+  ret.b /= passes;
   return ret;
 }
 
@@ -107,4 +111,15 @@ void drive_right(int speed) {
     analogWrite(BOTH_MOTORS_PWM,speed);
     right_forwards();
     left_backwards();
+}
+
+bool is_obstacle() {
+  return read_distance() < 300.;
+
+}
+
+bool is_orzo() {
+    struct RGB rgb;
+    rgb = read_rgb();
+    return ((rgb.r/rgb.g) < 1.21 );
 }
