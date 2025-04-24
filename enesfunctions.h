@@ -184,12 +184,19 @@ void go_to_coords(float x, float y, int speed) {
     theta = (x-Enes100.getX() > 0) ? 0 : -PI;
   }
   turn(theta);
-  drive_forwards(speed);
   while ( ((Enes100.getX() != x) || (Enes100.getY() != y)) && !is_obstacle()) {
+    if (Enes100.getTheta() != theta) {
+      stop_moving();
+      turn(theta);
+    } 
+    else {
+      drive_forwards(speed);
+    }
     delay(10);
   }
   stop_moving();
 }
+
 
 void navigate_obstacles(float goal_x, float goal_y) {
   go_to_coords(0.1, 1, 100);
