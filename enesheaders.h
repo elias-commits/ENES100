@@ -1,13 +1,19 @@
 #include <Servo.h>
 
+#define PI 3.14
+#define TWO_PI 6.28
+#define HALF_PI 1.57
+
 #define L_MOTOR_DIRECTION1 13
 #define L_MOTOR_DIRECTION2 12
 
-#define BOTH_MOTORS_PWM 6
+#define BOTH_MOTORS_PWM 10
 
 #define R_MOTOR_DIRECTION1 9
 #define R_MOTOR_DIRECTION2 8
 
+#define WIFI_TX 6
+#define WIFI_RX 4
 
 #define PRESS_SERVO_PWM 11
 #define TRAPDOOR_SERVO_PWM 5
