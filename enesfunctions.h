@@ -144,7 +144,7 @@ void turn(double newAngle){
 
 
     while((newAngle - 0.3) > Enes100.getTheta() || Enes100.getTheta() > (newAngle + 0.3)){
-        analogWrite(BOTH_MOTORS_PWM,50);
+        analogWrite(BOTH_MOTORS_PWM,150);
     }
     //  while((newAngle - 0.01) > Enes100.getTheta() || Enes100.getTheta() > (newAngle + 0.01)){
     //     Tank.setRightMotorPWM(10 * pref);
