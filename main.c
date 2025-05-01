@@ -7,8 +7,9 @@ float dist;
 
 void setup() {
     Serial.begin(9600);
-    pressServo.attach(PRESS_SERVO_PWM);
-    trapdoorServo.attach(TRAPDOOR_SERVO_PWM);
+    //these break it for no god damn reason:
+    //pressServo.attach(PRESS_SERVO_PWM);
+    //trapdoorServo.attach(TRAPDOOR_SERVO_PWM);
     for (int i = 0; i < (sizeof(INPUT_PINS) / sizeof(int)); i++) {
         pinMode(INPUT_PINS[i],INPUT);
     }
