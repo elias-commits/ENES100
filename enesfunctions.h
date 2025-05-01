@@ -2,6 +2,8 @@
 #include <math.h>
 #include <Enes100.h>
 
+// make a way to course correct the angle while driving
+
 float distance = 0.;
 float duration = 0.;
 
@@ -127,6 +129,12 @@ void drive_right(int speed) {
     left_backwards();
 }
 
+void activate_press() {
+  pressServo.write(255);
+  delay(5000);
+  pressServo.write(0);
+}
+
 void turn(double newAngle){
     double angle = Enes100.getTheta();
     int pref;
@@ -184,19 +192,19 @@ void go_to_coords(float x, float y, int speed) {
     theta = (x-Enes100.getX() > 0) ? 0 : -PI;
   }
   turn(theta);
-  while ( ((Enes100.getX() != x) || (Enes100.getY() != y)) && !is_obstacle()) {
-    if (Enes100.getTheta() != theta) {
-      stop_moving();
-      turn(theta);
-    } 
-    else {
-      drive_forwards(speed);
-    }
+  // when ultrasonic is disconnected, this will never run. commented out for now.
+  while ( ((Enes100.getX() != x) || (Enes100.getY() != y)) ) { //&& !is_obstacle()) {
+    // if (Enes100.getTheta() != theta) {
+    //   stop_moving();
+    //   turn(theta);
+    // } 
+    // else {
+    drive_forwards(speed);
+    // }
     delay(10);
   }
   stop_moving();
 }
-
 
 void navigate_obstacles(float goal_x, float goal_y) {
   go_to_coords(0.1, 1, 100);
