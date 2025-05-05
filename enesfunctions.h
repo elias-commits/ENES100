@@ -152,7 +152,7 @@ void turn(double newAngle){
 
 
     while((newAngle - 0.3) > Enes100.getTheta() || Enes100.getTheta() > (newAngle + 0.3)){
-        analogWrite(BOTH_MOTORS_PWM,150);
+        analogWrite(BOTH_MOTORS_PWM,100);
     }
     //  while((newAngle - 0.01) > Enes100.getTheta() || Enes100.getTheta() > (newAngle + 0.01)){
     //     Tank.setRightMotorPWM(10 * pref);
@@ -162,6 +162,7 @@ void turn(double newAngle){
 
     // }
     analogWrite(BOTH_MOTORS_PWM,0);
+    Enes100.print("[Group 5]: ");
     Enes100.println(Enes100.getTheta());
 }
 
@@ -178,12 +179,24 @@ This function will stop moving automatically upon detecting an obstacle.
 Do not use it for navigation that requires detecting obstacles
 
 */
+
+// Angle seems to be correct only when the OTV is to  the left of the desired point. Strange.
+// It breaks right after you pass by the point
+// /!\ When past the point, the angle needs to become pi-theta
 void go_to_coords(float x, float y, int speed) {
+  Enes100.print("[Group 5] go_to_coords: ");
+  Enes100.print(x);
+  Enes100.print(" ");
+  Enes100.println(y);
+  Enes100.print("theta: ");
   // bug: navigating to a point with the same X coord will cause division by 0
   float theta;
   
   if ((y != Enes100.getY()) && (x != Enes100.getX())) {
     theta = atan((y-Enes100.getY())/(x-Enes100.getX()));
+    if (Enes100.getX() > x) {
+      theta -= PI;
+    }
   }
   else if (x == Enes100.getX()) {
     theta = ((y-Enes100.getY() > 0) - (y-Enes100.getY() < 0)) * HALF_PI; // pi/2 or -pi/2 depending on sign
@@ -191,9 +204,17 @@ void go_to_coords(float x, float y, int speed) {
   else if (y == Enes100.getY()) {
     theta = (x-Enes100.getX() > 0) ? 0 : -PI;
   }
+  
+  Enes100.println(theta);
   turn(theta);
+  
+  Enes100.println("Driving...");
   // when ultrasonic is disconnected, this will never run. commented out for now.
-  while ( ((Enes100.getX() != x) || (Enes100.getY() != y)) ) { //&& !is_obstacle()) {
+  while ( ((Math.abs(Enes100.getX() - x > 0.3)) || (Math.abs(Enes100.getY() - y > 0.3))) ) { //&& !is_obstacle()) {
+    Enes100.print(" x ");
+    Enes100.print(Enes100.getX());
+    Enes100.print(" y ");
+    Enes100.print(Enes100.getY());
     // if (Enes100.getTheta() != theta) {
     //   stop_moving();
     //   turn(theta);
